@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Hospital Management System API
+  version: 1.0.0
+  description: RESTful API for hospital management system
+
+servers:
+  - url: http://localhost:5000
+
+paths:
+  /api/login:
+    post:
+      summary: Authenticate user and generate session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+
+  /api/users:
+    get:
+      summary: Fetch user profiles
+      responses:
+        '200':
+          description: List of users
+
+  /api/doctors:
+    get:
+      summary: List all doctors
+      responses:
+        '200':
+          description: List of doctors
+
+  /api/patients:
+    get:
+      summary: List all patients
+      responses:
+        '200':
+          description: List of patients
+
+  /api/appointments:
+    get:
+      summary: Fetch appointments
+      responses:
+        '200':
+          description: List of appointments
+
+  /api/appointment/add:
+    post:
+      summary: Add new appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: integer
+                doctor_id:
+                  type: integer
+                appointment_date:
+                  type: string
+                  format: date
+                appointment_time:
+                  type: string
+                  format: time
+                reason:
+                  type: string
+      responses:
+        '201':
+          description: Appointment created
+
+  /api/treatments:
+    get:
+      summary: List treatments
+      responses:
+        '200':
+          description: List of treatments
+
+  /api/medical_notes:
+    get:
+      summary: List medical notes
+      responses:
+        '200':
+          description: List of medical notes
+
+  /api/doctor_availability:
+    get:
+      summary: Get doctor availability slots
+      responses:
+        '200':
+          description: List of doctor availability slots
+
+  /api/summary:
+    get:
+      summary: Return analytics summary (admin dashboard)
+      responses:
+        '200':
+          description: Analytics summary
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
